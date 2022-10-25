@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Print Arrary (check console)</h2>
+
+   
+    </div>
+    <button onclick="Print()">Print</button>
+
+    <script>
+      function Print() {
+        const nameOfPeople = [
+          { name: "Alice" },
+          { name: "Bob" },
+          { name: "Jeremy" },
+          { name: "Sam" },
+          { name: "Henry" },
+          { name: "Sarah" },
+          { name: "Ashley" },
+        ];
+
+        nameOfPeople.forEach((item) => {
+          console.log("A:", "Hello my name is" + " " + item.name);
+        });
+
+        nameOfPeople.forEach((item, index) => {
+          index == 0 || index == 2 || index == 4 || index == 7
+            ? console.log("B:", item.name)
+            : null;
+        });
+
+        let reversedArray = [...nameOfPeople].reverse();
+        reversedArray.forEach((item, index, array) => {
+          console.log("C:", item.name);
+        });
+
+        nameOfPeople.forEach((item, index, array) => {
+          index == array.length - 1 ? console.log("D:", item.name) : null;
+        });
+      }
+    </script>
+  </body>
+</html>

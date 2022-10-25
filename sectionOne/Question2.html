@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Calculator</h2>
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: center;
+        width: 400px;
+        margin-bottom: 10px;
+      "
+    >
+      <div>
+        number 1:
+        <input style="width: 100%" id="operand1" type="text" />
+      </div>
+      <div>
+        operator:
+        <input
+          style="width: 100%; margin-left: 4px; margin-right: 4px"
+          id="operator"
+          type="text"
+        />
+      </div>
+      <div>
+        number 2:
+        <input style="width: 100%" id="operand2" type="text" />
+      </div>
+    </div>
+    <div>
+      Answer:
+      <div
+        style="
+          border: 3px;
+          border-style: solid;
+          border-color: burlywood;
+          padding: 8px;
+          width: 100px;
+          margin-bottom: 10px;
+        "
+        id="total"
+      ></div>
+    </div>
+    <button onclick="CalculateTotal()">Calculate</button>
+
+    <script>
+      function CalculateTotal() {
+        let operand1 = document.getElementById("operand1").value;
+        let operator = document.getElementById("operator").value;
+        let operand2 = document.getElementById("operand2").value;
+
+        switch (operator) {
+          case "+":
+          case "plus":
+          case "add":
+            sum = Number(operand1) + Number(operand1);
+            console.log(Number(operand1) + Number(operand2));
+            break;
+          case "-":
+          case "minus":
+          case "subtract":
+            sum = Number(operand1) - Number(operand2);
+            break;
+          case "x":
+          case "*":
+          case "times":
+          case "multiply":
+            sum = Number(operand1) * Number(operand2);
+            break;
+          case "/":
+          case "divide":
+            sum = Number(operand1) / Number(operand2);
+            break;
+          default:
+            sum = "Do not understand the operation. try again";
+        }
+        document.getElementById("total").innerHTML = sum;
+      }
+    </script>
+  </body>
+</html>

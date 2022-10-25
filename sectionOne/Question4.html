@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <table>
+      <button onclick="GenerateNumbers()">Generate</button>
+      <p id="array"></p>
+      <p id="target"></p>
+      <p id="number1"></p>
+      <p id="number2"></p>
+    </table>
+
+    <script type="text/javascript">
+      function GenerateNumbers() {
+        let array = document.getElementById("array");
+        let number1 = document.getElementById("number1");
+        let number2 = document.getElementById("number2");
+        let targetNo = document.getElementById("target");
+
+        let nums = [2, 7, 11, 15];
+        let target = 17;
+
+        let random;
+        getRandomNum = () => {
+          random = nums[Math.floor(Math.random() * nums.length)];
+        };
+
+        nums.forEach((item) => {
+          getRandomNum();
+          if (item !== random) {
+            let sum = random + item;
+            if (sum === target) {
+              array.innerHTML = "Numbers List: " + nums;
+              targetNo.innerHTML = "Target Number: " + target;
+              number1.innerHTML = "Number One: " + random;
+              number2.innerHTML = "Number Two: " + item;
+            } else getRandomNum();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

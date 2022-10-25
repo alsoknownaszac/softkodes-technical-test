@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <table>
+      <tr>
+        <td>Document to save:</td>
+      </tr>
+      <tr>
+        <div>
+          username:
+          <input type="text" id="username" placeholder="Enter your username" />
+        </div>
+        <div>
+          password:
+          <input type="text" id="password" placeholder="Enter your password" />
+        </div>
+        <div>
+          confirm password:
+          <input
+            type="text"
+            id="confirm_password"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <p id="error"></p>
+      </tr>
+      <tr>
+        <td>Filename to Save As:</td>
+        <td><input id="inputSaveAsFileName" /></td>
+        <td><button onclick="SaveDocumentFile()">Save Text to File</button></td>
+      </tr>
+      <tr>
+        <td>Select a File to Load:</td>
+        <td><input type="file" id="fileToLoad" /></td>
+        <td><button onclick="LoadFileAsText()">Load Selected File</button></td>
+        <td></td>
+      </tr>
+      <tr>
+        <p id="file_error"></p>
+        <td colspan="3">
+          <textarea id="inputDocumentSave" cols="50" rows="15"></textarea>
+        </td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      function SaveDocumentFile() {
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let confirm_password =
+          document.getElementById("confirm_password").value;
+        let error = document.getElementById("error");
+
+        if (!username || !password || password !== confirm_password) {
+          return (error.innerHTML = "username and password is incorrect");
+        }
+        let DocumentSave =
+          "\r UserName: " + username + " \r\n " + "Password: " + password;
+        console.log("saved", DocumentSave);
+
+        let DocumentSaveAsBlob = new Blob([DocumentSave], {
+          type: "text/plain",
+        });
+        let DocumentSaveAsURL = window.URL.createObjectURL(DocumentSaveAsBlob);
+        let SaveAsFileName = document.getElementById(
+          "inputSaveAsFileName"
+        ).value;
+
+        if (!SaveAsFileName) {
+          return (error.innerHTML = "What do you want to save the file as");
+        }
+
+        let downloadLink = document.createElement("a");
+        downloadLink.download = SaveAsFileName;
+        downloadLink.innerHTML = "Download File";
+        downloadLink.href = DocumentSaveAsURL;
+        downloadLink.onclick = DestroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+        location.reload();
+        return false;
+      }
+
+      function DestroyClickedElement(event) {
+        document.body.removeChild(event.target);
+      }
+
+      function LoadFileAsText() {
+        let fileToLoad = document.getElementById("fileToLoad").files[0];
+        let file_error = document.getElementById("file_error");
+
+        if (!fileToLoad) {
+          return (file_error.innerHTML = "Please choose file");
+        }
+
+        let fileReader = new FileReader();
+        fileReader.onload = function (fileLoadedEvent) {
+          let textFromFileLoaded = fileLoadedEvent.target.result;
+          document.getElementById("inputDocumentSave").value =
+            textFromFileLoaded;
+        };
+        fileReader.readAsText(fileToLoad, "UTF-8");
+      }
+    </script>
+  </body>
+</html>
